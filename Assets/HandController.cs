@@ -64,17 +64,20 @@ public class HandController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     void IDragHandler.OnDrag(PointerEventData eventData)
     {
         Debug.Log("OnDrag");
-        DragTarget = new Vector3(Camera.main.ScreenToWorldPoint(eventData.position).x, Camera.main.ScreenToWorldPoint(eventData.position).y);
-        if (Vector3.Distance(DragTarget, otherHand.transform.position) < Reach)
+        if (isDragged)
         {
-            MoveTarget = DragTarget;
-        }
-        else
-        {
+            DragTarget = new Vector3(Camera.main.ScreenToWorldPoint(eventData.position).x, Camera.main.ScreenToWorldPoint(eventData.position).y);
+            if (Vector3.Distance(DragTarget, otherHand.transform.position) < Reach)
+            {
+                MoveTarget = DragTarget;
+            }
+            else
+            {
 
-            MoveTarget = otherHand.transform.position + (Reach) * (DragTarget - otherHand.transform.position).normalized;
+                MoveTarget = otherHand.transform.position + (Reach) * (DragTarget - otherHand.transform.position).normalized;
+            }
+            transform.position = Vector3.Lerp(transform.position, MoveTarget, Time.deltaTime * 10);
         }
-        transform.position = Vector3.Lerp(transform.position, MoveTarget, Time.deltaTime * 10);
     }
 
     IEnumerator AttachToAnchor()
