@@ -10,6 +10,7 @@ public class HandController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     [SerializeField] HandController otherHand;
     [SerializeField] float Reach = 10f;
     [SerializeField] Rigidbody2D RB;
+    [SerializeField] GripPointManager gripPointManager;
     public bool isDragged = false;
     public bool Attached = false;
 
@@ -82,6 +83,7 @@ public class HandController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
 
     IEnumerator AttachToAnchor()
     {
+        StartCoroutine(gripPointManager.DisableGripsBut(Anchor.GetComponent<GripPoint>().gripColor,transform.position));
         while (Attached)
         {
             transform.position = Anchor.transform.position;
