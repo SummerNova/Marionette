@@ -11,6 +11,7 @@ public class HandController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     [SerializeField] float Reach = 10f;
     [SerializeField] Rigidbody2D RB;
     [SerializeField] GripPointManager gripPointManager;
+    [SerializeField, Range(1, 100)] float damping = 1;
     public bool isDragged = false;
     public bool Attached = false;
     public bool oldestGrip = false;
@@ -25,7 +26,7 @@ public class HandController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     {
         if (!Attached && (otherHand.Attached || otherHand.isDragged) && Vector3.Distance(transform.position, otherHand.transform.position) > Reach) 
         {
-            RB.AddForce((otherHand.transform.position- transform.position ).normalized * Reach*3, ForceMode2D.Force);
+            RB.AddForce((otherHand.transform.position- transform.position ).normalized * Reach/damping, ForceMode2D.Impulse);
         }
     }
 
@@ -96,7 +97,7 @@ public class HandController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
         while (Attached)
         {
             transform.position = Anchor.transform.position;
-            if (Vector3.Distance(transform.position, otherHand.transform.position) > Reach && oldestGrip)
+            if (Vector3.Distance(transform.position, otherHand.transform.position) > Reach && oldestGrip && otherHand.Attached)
             {
                 Attached = false; 
                 RB.constraints = RigidbodyConstraints2D.None;
