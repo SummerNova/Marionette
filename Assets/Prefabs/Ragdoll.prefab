@@ -422,6 +422,7 @@ MonoBehaviour:
   gripPointManager: {fileID: 0}
   isDragged: 0
   Attached: 0
+  oldestGrip: 0
 --- !u!212 &5903710238954787796
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -535,7 +536,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.55
 --- !u!233 &2076527778634399721
 HingeJoint2D:
   m_ObjectHideFlags: 0
@@ -1932,6 +1933,7 @@ MonoBehaviour:
   gripPointManager: {fileID: 0}
   isDragged: 0
   Attached: 0
+  oldestGrip: 0
 --- !u!212 &4981814422554154277
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2045,7 +2047,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.55
 --- !u!233 &2499363962469024332
 HingeJoint2D:
   m_ObjectHideFlags: 0

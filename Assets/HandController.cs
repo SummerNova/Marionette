@@ -13,14 +13,21 @@ public class HandController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     [SerializeField] GripPointManager gripPointManager;
     public bool isDragged = false;
     public bool Attached = false;
+    public bool oldestGrip = false;
 
     private GameObject Anchor;
     private Vector3 DragTarget;
     private Vector3 MoveTarget;
     bool HasAnchor = false;
-    
 
 
+    private void Update()
+    {
+        if (!Attached && (otherHand.Attached || otherHand.isDragged) && Vector3.Distance(transform.position, otherHand.transform.position) > Reach) 
+        {
+            RB.AddForce((otherHand.transform.position- transform.position ).normalized * Reach*3, ForceMode2D.Force);
+        }
+    }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -42,6 +49,8 @@ public class HandController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
             if (HasAnchor)
             {
                 Attached = true;
+                oldestGrip = false;
+                otherHand.oldestGrip = true;
                 StartCoroutine(AttachToAnchor());
             }
             else
@@ -87,6 +96,11 @@ public class HandController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
         while (Attached)
         {
             transform.position = Anchor.transform.position;
+            if (Vector3.Distance(transform.position, otherHand.transform.position) > Reach && oldestGrip)
+            {
+                Attached = false; 
+                RB.constraints = RigidbodyConstraints2D.None;
+            } 
             yield return new WaitForEndOfFrame();
         }
         
@@ -94,7 +108,7 @@ public class HandController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Grip Point")
+        if (collision.gameObject.tag == "Grip Point" && !Attached)
         {
             Anchor = collision.gameObject;
             HasAnchor = true;
