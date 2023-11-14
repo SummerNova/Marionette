@@ -14,6 +14,7 @@ public class HandController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     [SerializeField, Range(1, 100)] float damping = 1;
     [SerializeField] float handReachMultiplier = 1;
     [SerializeField] Rigidbody2D Ragdoll;
+    [SerializeField] CircleCollider2D Detection;
 
     public bool isDragged = false;
     public bool Attached = false;
@@ -25,6 +26,7 @@ public class HandController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     private GameObject Anchor;
     private Vector3 DragTarget;
     private Vector3 MoveTarget;
+    private int AnchorIncrement = 0;
     bool HasAnchor = false;
 
 
@@ -55,6 +57,7 @@ public class HandController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
 
             Attached = false;
             transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            Detection.radius = 0.55f;
         }
 
     }
@@ -74,6 +77,7 @@ public class HandController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
             }
             else RB.constraints = RigidbodyConstraints2D.None;
             transform.localScale = new Vector3(0.73f, 0.73f, 0.73f);
+            Detection.radius = 1;
             RB.gravityScale = 1;
             
         }
@@ -109,6 +113,7 @@ public class HandController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
             if (!otherHand.Attached && !isGrounded)
             {
                 Ragdoll.gravityScale = 2;
+                Ragdoll.mass = 10;
             }
             else
             {
@@ -123,6 +128,7 @@ public class HandController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
         StartCoroutine(gripPointManager.DisableGripsBut(Anchor.GetComponent<GripPoint>().gripColor,transform.position));
         RB.constraints = RigidbodyConstraints2D.FreezeAll;
         Ragdoll.gravityScale = 0;
+        Ragdoll.mass = 0.01f;
         while (Attached)
         {
             transform.position = Anchor.transform.position;
@@ -131,7 +137,7 @@ public class HandController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
                 Attached = false; 
                 RB.constraints = RigidbodyConstraints2D.None;
             } 
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
         
     }
@@ -149,6 +155,7 @@ public class HandController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
         {
             Anchor = collision.gameObject;
             HasAnchor = true;
+            AnchorIncrement++;
         }
     }
 
@@ -156,7 +163,8 @@ public class HandController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     {
         if (collision.gameObject.tag == "Grip Point")
         {
-            HasAnchor = false;
+            AnchorIncrement--;
+            if (AnchorIncrement==0) HasAnchor = false;
         }
     }
 

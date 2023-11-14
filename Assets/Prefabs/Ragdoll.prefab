@@ -424,6 +424,7 @@ MonoBehaviour:
   damping: 6.6
   handReachMultiplier: 1
   Ragdoll: {fileID: 3300843003004797827}
+  Detection: {fileID: 5674849826729498086}
   isDragged: 0
   Attached: 0
   oldestGrip: 0
@@ -541,7 +542,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.55
+  m_Radius: 1
 --- !u!233 &2076527778634399721
 HingeJoint2D:
   m_ObjectHideFlags: 0
@@ -777,7 +778,7 @@ Transform:
   m_GameObject: {fileID: 2564800775235091555}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalPosition: {x: 0, y: 0, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1972,7 +1973,7 @@ Transform:
   m_GameObject: {fileID: 8766679185045086512}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalPosition: {x: 0, y: 0, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2270,6 +2271,7 @@ MonoBehaviour:
   damping: 6.6
   handReachMultiplier: 1
   Ragdoll: {fileID: 3300843003004797827}
+  Detection: {fileID: 4113092096435315266}
   isDragged: 0
   Attached: 0
   oldestGrip: 0
@@ -2387,7 +2389,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.55
+  m_Radius: 1
 --- !u!233 &2499363962469024332
 HingeJoint2D:
   m_ObjectHideFlags: 0
