@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Grip Point
+  - Platform
   layers:
   - Default
   - TransparentFX

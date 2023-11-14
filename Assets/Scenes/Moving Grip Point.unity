@@ -328,7 +328,7 @@ GameObject:
   - component: {fileID: 63201028}
   m_Layer: 0
   m_Name: Static Sprite
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7116,10 +7116,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1547422144664997676, guid: d86cce0f3b184d841945910514394eb8, type: 3}
-      propertyPath: damping
-      value: 6.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1547422144664997676, guid: d86cce0f3b184d841945910514394eb8, type: 3}
       propertyPath: gripPointManager
       value: 
       objectReference: {fileID: 1234172979}
@@ -7166,10 +7162,6 @@ PrefabInstance:
     - target: {fileID: 7869724616848140508, guid: d86cce0f3b184d841945910514394eb8, type: 3}
       propertyPath: m_Name
       value: Ragdoll
-      objectReference: {fileID: 0}
-    - target: {fileID: 8449041069513888155, guid: d86cce0f3b184d841945910514394eb8, type: 3}
-      propertyPath: damping
-      value: 6.6
       objectReference: {fileID: 0}
     - target: {fileID: 8449041069513888155, guid: d86cce0f3b184d841945910514394eb8, type: 3}
       propertyPath: gripPointManager
