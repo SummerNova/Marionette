@@ -15,6 +15,7 @@ public class HandController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     [SerializeField] float handReachMultiplier = 1;
     [SerializeField] Rigidbody2D Ragdoll;
     [SerializeField] CircleCollider2D Detection;
+    [SerializeField] List<Collider2D> availableGrips = new List<Collider2D>();
 
     public bool isDragged = false;
     public bool Attached = false;
@@ -68,8 +69,15 @@ public class HandController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
         if (isDragged)
         {
             isDragged = false;
-            if (HasAnchor)
+            if (availableGrips.Count > 0)
             {
+                Anchor = availableGrips[0].gameObject;
+                foreach (Collider2D grip in availableGrips)
+                {
+                    if (Vector3.Distance(Anchor.transform.position, transform.position)
+                        > Vector3.Distance(grip.transform.position, transform.position))
+                        Anchor = grip.gameObject;
+                }
                 Attached = true;
                 oldestGrip = false;
                 otherHand.oldestGrip = true;
@@ -146,16 +154,14 @@ public class HandController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     {
         DragOrigin = Camera.main.WorldToScreenPoint((otherHand.transform.position + transform.position)/2);
         newTarget = new Vector2(DragOrigin.x, DragOrigin.y) + (CurrentDrag - new Vector2(DragOrigin.x,DragOrigin.y)) * handReachMultiplier;
-        return new Vector3(Camera.main.ScreenToWorldPoint(newTarget).x, Camera.main.ScreenToWorldPoint(newTarget).y, 1);
+        return new Vector3(Camera.main.ScreenToWorldPoint(newTarget).x, Camera.main.ScreenToWorldPoint(newTarget).y +2.5f, 1);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Grip Point" && !Attached)
+        if (collision.gameObject.tag == "Grip Point")
         {
-            Anchor = collision.gameObject;
-            HasAnchor = true;
-            AnchorIncrement++;
+            availableGrips.Add(collision);
         }
     }
 
@@ -163,8 +169,7 @@ public class HandController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     {
         if (collision.gameObject.tag == "Grip Point")
         {
-            AnchorIncrement--;
-            if (AnchorIncrement==0) HasAnchor = false;
+            availableGrips.Remove(collision);
         }
     }
 

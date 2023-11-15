@@ -581,7 +581,7 @@ GameObject:
   - component: {fileID: 6224687907788567773}
   - component: {fileID: 7355949078720830934}
   - component: {fileID: 7881729749556627679}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Forearm L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -677,7 +677,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 584
+    m_Bits: 576
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -2044,7 +2044,7 @@ GameObject:
   - component: {fileID: 3619060769524856749}
   - component: {fileID: 5464112550671343886}
   - component: {fileID: 5953905329309280636}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Forearm R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2140,7 +2140,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 584
+    m_Bits: 576
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
